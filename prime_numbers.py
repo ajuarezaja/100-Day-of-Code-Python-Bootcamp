@@ -1,15 +1,19 @@
 # Write your code below this line 👇
 def prime_checker(number):
     if number == 1:
-        print("Not a prime number.")
+        print("It's not a prime number.")
     elif number == 2 or number == 3 or number == 5:
         print("It's a prime number.")
     elif (number % 2) == 0:
-        print("Not a prime number.")
+        print("It's not a prime number.")
     elif (number % 3) == 0:
-        print("Not a prime number.")
+        print("It's not a prime number.")
     elif (number % 5) == 0:
-        print("Not a prime number.")
+        print("It's not a prime number.")
+    elif (number % 7) == 0:
+        print("It's not a prime number.")
+    elif (number % 9) == 0:
+        print("It's not a prime number.")
     else:
         print("It's a prime number.")
 
