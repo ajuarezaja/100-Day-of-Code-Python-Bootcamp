@@ -1,0 +1,106 @@
+import random
+from art import logo
+
+# Assign cards to player or dealer
+
+
+def cards_assignment(score, card_of_person, quantity=1):
+    # his function assigns every card for player and dealer.
+    # in the first round assigns two card for each player '''
+    card_assigned = card_of_person
+    for count in range(quantity):
+        new_card = random.choice(cards)
+        if new_card == 11 and score > 10:
+            new_card = 1
+        card_assigned.append(new_card)
+        score += new_card
+        result = checking_21(score)
+    return score, result, card_assigned
+
+
+def checking_21(score):
+    # This functions checks if score is greater than 21
+    if score > 21:
+        result = 'lose'
+        return result
+    return
+
+
+def check_winner(score_p, score_d):
+    # This function checks who win
+    if score_p > score_d:
+        winner = 'Player 1 wins!!!'
+    elif score_p < score_d:
+        winner = 'Dealer wins!!!'
+    else:
+        winner = 'Is a Tie!!!'
+    return winner
+
+
+def main(player_score, player_cards, dealer_score, dealer_cards):
+
+    more_cards = True
+    player_score, checked_player_21, player_cards = cards_assignment(player_score, player_cards, 2)
+    dealer_score, checked_dealer_21, dealer_cards = cards_assignment(dealer_score, dealer_cards, 2)
+
+    print(f"Dealer's cards: {dealer_cards[len(dealer_cards) - 2]}, Dealer's score = ??.")
+    print(f"Player 1 cards: {player_cards}, Player 1 score = {player_score}.")
+
+    while more_cards:
+        # ask for another card
+        another_card = input("Want more cards? ('yes' or 'no'): ").lower()
+        if another_card != 'yes' and another_card != 'no':
+            print("Please answer 'yes' or no'.")
+        if another_card == 'yes':
+            player_score, checked_player_21, player_cards = cards_assignment(player_score,player_cards)
+            if checked_player_21 == 'lose':
+                print('You lose Player 1')
+                more_cards = False
+                #break
+            print(f"Dealer's cards: {dealer_cards[len(dealer_cards)-2]}, Dealer's score = ???.")
+            print(f"Player 1 cards: {player_cards}, Player 1 score = {player_score}.")
+        elif another_card == 'no':
+            while another_card == 'no':
+                # dealer score less than 17 must draw another card
+                if dealer_score < 17:
+                    dealer_score, checked_dealer_21, dealer_cards = cards_assignment(dealer_score, dealer_cards)
+                    if checked_dealer_21 == 'lose':
+                        print('Player 1 wins!!!!')
+                        more_cards = False
+                        another_card = False
+                # if dealer score is between 17 and 21 checks who wins
+                elif 16 < dealer_score < 22:
+                    print(check_winner(player_score, dealer_score))
+                    more_cards = False
+                    another_card = False
+                    break
+                # checks if dealer score is less than 21 but greater than player score
+                elif player_score < dealer_score < 22:
+                    print("Dealer wins!!!")
+                    more_cards = False
+                    another_card = False
+                    break
+        elif another_card:
+            break
+
+    print(f"Dealer's cards: {dealer_cards}, Dealer's score = {dealer_score}.")
+    print(f"Player 1 cards: {player_cards}, Player 1 score = {player_score}.")
+
+
+more_games = True
+# main loop
+while more_games:
+    print(logo)
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    player_cards = []
+    dealer_cards = []
+    player_score = 0
+    dealer_score = 0
+    another_game = input("Want to play a Blackjack game? (answer 'yes' o 'no'): ").lower()
+    if another_game == 'yes':
+        main(player_score, player_cards, dealer_score, dealer_cards)
+    elif another_game == 'no':
+        print('Good Bye')
+        more_games = False
+    else:
+        print("Please answer 'yes' or 'no'. ")
