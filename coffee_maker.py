@@ -36,6 +36,7 @@ profit = 0
 
 
 def enough_money(drink, money_inserted):
+    '''Checks if is inserted enough money to buy the drink, and return if the drink cans be made, the change or refund'''
     global profit
     money_needed = MENU[drink]["cost"]
     if money_needed > money_inserted:
@@ -51,6 +52,7 @@ def enough_money(drink, money_inserted):
 
 
 def modify_resources(drink):
+    ''' Modifies the amount of resources in the machine after the drink was made'''
     resources['coffee'] -= MENU[drink]['ingredients']['coffee']
     resources['water'] -= MENU[drink]['ingredients']['water']
     if drink != 'espresso':
@@ -58,6 +60,7 @@ def modify_resources(drink):
 
 
 def print_report():
+    ''' print resources in the machine and profit'''
     print(f"Water: {resources['water']}ml")
     print(f"Milk: {resources['milk']}ml")
     print(f"Coffee: {resources['coffee']}g")
@@ -65,6 +68,7 @@ def print_report():
 
 
 def enough_resources(drink):
+    ''' Verifies if there are enough resources to make the drink'''
     coffee_needed = MENU[drink]['ingredients']['coffee']
     water_needed = MENU[drink]['ingredients']['water']
     if coffee_needed > resources['coffee']:
@@ -91,6 +95,7 @@ def enough_resources(drink):
 
 
 def insert_coins():
+    ''' Initializes the coin counter'''
     print('Please Insert coins:')
     quarters = int(input("How many Quarters? "))
     dimes = int(input('How many Dimes? '))
@@ -106,9 +111,10 @@ def turn_off():
 
 
 def add_resources():
+    ''' You can add more resources to the machine'''
     water = int(input("How many water? "))
-    coffee = int(input("How many coffee? "))
     milk = int(input("How many milk? "))
+    coffee = int(input("How many coffee? "))
     resources['water'] += water
     resources['coffee'] += coffee
     resources['milk'] += milk
@@ -143,3 +149,4 @@ def main():
 
 
 main()
+
